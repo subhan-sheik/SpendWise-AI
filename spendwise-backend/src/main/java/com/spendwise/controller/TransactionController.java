@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/transactions")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "${FRONTEND_URL:http://localhost:5173}")
 @Tag(name = "SpendWise Transactions", description = "APIs to create, view, update, and delete transactions")
 public class TransactionController {
 
