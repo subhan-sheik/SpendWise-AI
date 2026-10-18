@@ -2,6 +2,10 @@ import "./App.css";
 import { useEffect, useState, useRef, lazy, Suspense } from "react";
 const ExpenseChart = lazy(() => import("./ExpenseChart"));
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:9999";
+
+
 function formatDate(dateString) {
   if (!dateString) return "—";
 
@@ -81,8 +85,7 @@ function App() {
     setFetchError("");
 
     try {
-      const response = await fetch("http://localhost:9999/api/transactions");
-
+  const response = await fetch(`${API_BASE_URL}/api/transactions`);
       if (!response.ok) {
         throw new Error("Failed to fetch transactions");
       }
@@ -125,8 +128,8 @@ function App() {
     const isEditing = Boolean(transaction.id);
 
     const url = isEditing
-      ? `http://localhost:9999/api/transactions/${transaction.id}`
-      : "http://localhost:9999/api/transactions";
+  ? `${API_BASE_URL}/api/transactions/${transaction.id}`
+  : `${API_BASE_URL}/api/transactions`;
 
     setIsSaving(true);
     setFeedbackMessage("");
@@ -292,12 +295,12 @@ function App() {
     setHistoryMessage("");
 
     try {
-      const response = await fetch(
-        `http://localhost:9999/api/transactions/${id}`,
-        {
-          method: "DELETE",
-        },
-      );
+    const response = await fetch(
+   `${API_BASE_URL}/api/transactions/${id}`,
+  {
+    method: "DELETE",
+  }
+);
 
       if (!response.ok) {
         throw new Error("Failed to delete transaction");
